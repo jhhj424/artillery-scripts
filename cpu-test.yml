@@ -1,35 +1,13 @@
 config:
-  target: "https://example.com/api"
+  target: "http://34.64.253.152"
   phases:
     - duration: 60
-      arrivalRate: 5
+      arrivalRate: 1
       name: Warm up
-    - duration: 120
-      arrivalRate: 5
-      rampTo: 50
-      name: Ramp up load
-    - duration: 600
-      arrivalRate: 50
-      name: Sustained load
-  payload:
-    path: "keywords.csv"
-    fields:
-      - "keyword"
+# 1초에 1개의 v user 가 생성되고 60초 동안 실행함
 
 scenarios:
-  - name: "Search and buy"
+  - name: "just get hash"
     flow:
-      - post:
-          url: "/search"
-          json:
-            kw: "{{ keyword }}"
-          capture:
-            - json: "$.results[0].id"
-              as: "productId"
       - get:
-          url: "/product/{{ productId }}/details"
-      - think: 5
-      - post:
-          url: "/cart"
-          json:
-            productId: "{{ productId }}"
+          url: "/hash/123"
